@@ -36,6 +36,68 @@ pip3 install pycmdex
 pycmdex web
 ```
 
+## Usage
+
+1) Connect the microcontroller board to host computer or run the circuit simulator.
+
+2) Write python script
+
+``` python
+# import the Cmdex
+from PyCmdex.cmdex import Cmdex
+
+# Create an instance of the Cmdex with debugging enabled
+cmdex = Cmdex(debug_core=True)
+
+# Turn the LED0 on.
+cmdex.led0 = True
+```
+3) Run the script, the console will display lines of information like this:
+
+```
+CmdexCore: Serial port detecting...
+  Found 3 ports:
+    - COM5
+    - COM3
+    - COM4
+CmdexCore: Performs handshaking @ COM5...
+CmdexSerial: Opening port COM5...
+CmdexSerial: COM5 [115200-N-8-1]
+CmdexCore: Performs handshaking [0/10]
+CmdexCore: Performs handshaking [1/10]
+CmdexCore: Performs handshaking [2/10]
+CmdexCore: Performs handshaking [3/10]
+CmdexCore: MCU is detected @ COM5
+
+MCUFirmware: cmdex.core.1.0.1
+
+CmdexSerial: Opening port COM5...
+CmdexSerial: COM5 [115200-N-8-1]
+CmdexCore: Service is running....
+CmdexCore: Press "CTRL+UP" or "CTRL+DOWN" to exit.
+2020-06-01 13:52:52.649411 CmdexCore: Write command led,0,3 to MCU
+2020-06-01 13:52:52.691413 CmdexCore: Timeout @ led,0,3, retry [1/3]
+2020-06-01 13:52:52.755773 CmdexCore: Write command led,1,3 to MCU
+2020-06-01 13:52:52.776871 CmdexCore: Write command led,2,3 to MCU
+2020-06-01 13:52:52.801847 CmdexCore: Write command led,3,3 to MCU
+2020-06-01 13:52:52.823901 CmdexCore: Write command psw,0 to MCU
+2020-06-01 13:52:52.852876 CmdexCore: Write command psw,1 to MCU
+2020-06-01 13:52:52.873987 CmdexCore: Write command psw,2 to MCU
+2020-06-01 13:52:52.904992 CmdexCore: Write command psw,3 to MCU
+2020-06-01 13:52:52.926939 CmdexCore: Write command adc,0 to MCU
+2020-06-01 13:52:52.955968 CmdexCore: Write command adc,1 to MCU
+2020-06-01 13:52:52.988943 CmdexCore: Write command adc,2 to MCU
+2020-06-01 13:52:53.024945 CmdexCore: Write command adc,3 to MCU
+
+CmdexMcu: Completed
+CmdexMcu: {'leds': [False, False, False, False], 'psw': [869, 85, 574, 182], 'adcs': [869, 85, 574, 182]}
+
+2020-06-01 13:52:53.099059 CmdexCore: Write command led,0,1 to MCU
+```
+
+>Check the `cmdex.py` for more details
+
+---
 
 ## Cloning this repository
 
