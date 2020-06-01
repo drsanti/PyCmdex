@@ -45,4 +45,4 @@ git clone https://github.com/drsanti/PyCmdex.git
 
 ## Change log
 
-- [01 June 2020]: **PyCmdex 1.1.13** is published to the PyPI and GitHub.
+- [01 June 2020]: **PyCmdex 1.1.14** is published to the PyPI and GitHub.

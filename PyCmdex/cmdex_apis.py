@@ -1,10 +1,10 @@
 # ************************************************************
 # File:     cmdex_apis.py
-# Version:  1.1.13 (01 Jun 2020)
+# Version:  1.1.14 (01 Jun 2020)
 # Author:   Asst.Prof.Dr.Santi Nuratch
 #           Embedded Computing and Control Laboratory
 #           ECC-Lab, INC, KMUTT, Thailand
-# Update:   08:48:35, 01 Jun 2020
+# Update:   08:57:15, 01 Jun 2020
 # ************************************************************
 # 
 # 
