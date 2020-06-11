@@ -1,10 +1,12 @@
 # PyCmdex
 
+> Go to the [examples](./examples), if you already installed the `PyCmdex`
+
 ## PyCmdex library
 
 The PyCmdex is a Python library used to develop computer and microcontroller cooperation applications. It provides plentiful APIs for microcontroller interfacing. With this library, you can make computer-based control and monitoring application easier and faster.
 
-## Supported Microcontroller
+## Supported Microcontrollers
 
 All of the microcontrollers running the Cmdex firmware can communicate to the PyCmdex through a serial port (UART). A USB-to-Serial adapter can be used. Note, the Cmdex firmware is a firmware of the microcontroller (not PyCmdex).
 
