@@ -1,10 +1,11 @@
+"""
 # ************************************************************
 # File:     cmdex.py
-# Version:  1.1.14 (01 Jun 2020)
+# Version:  1.1.16 (11 Jun 2020)
 # Author:   Asst.Prof.Dr.Santi Nuratch
 #           Embedded Computing and Control Laboratory
 #           ECC-Lab, INC, KMUTT, Thailand
-# Update:   08:57:15, 01 Jun 2020
+# Update:   15:33:32, 11 Jun 2020
 # ************************************************************
 # 
 # 
@@ -16,8 +17,10 @@
 # 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # 
+"""
 
 
+"""
 #************************************************************
 #* File:    Cmdex.py                                        *
 #* Author:  Asst.Prof.Dr.Santi Nuratch                      *
@@ -25,6 +28,7 @@
 #*          ECC-Lab, INC, KMUTT, Thailand                   *
 #* Update:  27 May 2020                                     *
 #************************************************************
+"""
 
 from PyCmdex.cmdex_mcu import CmdexMcu
 

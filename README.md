@@ -30,7 +30,7 @@ pip3 uninstall pycmdex
 pip3 install pycmdex
 ```
 
-3) Checking and open the git repository
+3) Open the git repository
 
 ```
 pycmdex web
@@ -108,3 +108,4 @@ git clone https://github.com/drsanti/PyCmdex.git
 ## Change log
 
 - [01 June 2020]: **PyCmdex 1.1.14** is published to the PyPI and GitHub.
+- [11 June 2020]: **PyCmdex 1.1.16** is published to the PyPI and GitHub.
