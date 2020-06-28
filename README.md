@@ -113,7 +113,7 @@ CmdexMcu: {'leds': [False, False, False, False], 'psw': [869, 85, 574, 182], 'ad
 
 :cd: [ecc-pic24-cli.exe](resources/ecc-pic24-cli.exe)
 
-⚙️[cmdex.hex](resources/cmdex.hex)
+⚙️ [cmdex.hex](resources/cmdex.hex)
 
 💻 [mcu_circuit.pdsprj](resources/mcu_circuit.pdsprj)
 
