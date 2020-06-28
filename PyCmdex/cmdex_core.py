@@ -1,24 +1,670 @@
 """
-# ************************************************************
-# File:     cmdex_core.py
-# Version:  1.1.16 (11 Jun 2020)
-# Author:   Asst.Prof.Dr.Santi Nuratch
-#           Embedded Computing and Control Laboratory
-#           ECC-Lab, INC, KMUTT, Thailand
-# Update:   15:33:32, 11 Jun 2020
-# ************************************************************
-# 
-# 
-# Copyright 2020 Asst.Prof.Dr.Santi Nuratch
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
+#************************************************************
+#* File:    CmdexCore.py                                   *
+#* Author:  Asst.Prof.Dr.Santi Nuratch                      *
+#*          Embedded Computing and Control Laboratory       *
+#*          ECC-Lab, INC, KMUTT, Thailand                   *
+#* Update:  22 May 2020                                     *
+#************************************************************
 """
 
+from PyCmdex.cmdex_serial import *
 
-import zlib, base64
-exec(zlib.decompress(base64.b64decode('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')))
+import threading
+import time
+import keyboard
+import uuid
+from datetime import datetime
+
+import serial
+from serial.tools import list_ports
+
+import webbrowser
+import sys
+
+class CmdexCore(CmdexSerial):
+
+    def __init__(self, port=None, baudrate=115200, **kwargs):
+
+
+
+
+        self._line_callback    = None
+        self._adc_callback     = None
+        self._psw_callback     = None
+        self._led_callback     = None
+        self._timeout_callback = None
+
+        self._debug_core = False
+
+        self._exit_keys = ['ctrl+up','ctrl+down']
+
+
+
+
+
+        # Arguments processing
+
+        # Exit key
+        if 'exit_key' in kwargs:
+            self._exit_keys.clear()
+            self._exit_keys.append(kwargs['exit_key'])
+
+        if 'debug_core' in kwargs:
+            self._debug_core = kwargs['debug_core']
+
+        # If the port is None, the auto-detection is performed.
+        if port == None:
+            port = self.handshake()
+
+        #
+        super().__init__(port, baudrate, **kwargs)
+
+        self.__callbacks = {}
+
+
+        # The last pair of cmmmand-callback
+        self._last_cmd_cbk  = {'cmd':None,'cbk':None}
+
+        # List of cmmmand-callback pairs
+        self._queue_cmd_cbk = []
+
+        # Thread
+        self._thread = None
+
+        # Running flag of the worker thread
+        self._thread_running = False
+
+        # Get the thread Daemon. If the daemon is True, the core-thread will be terminated when the main program ends
+        self._thread_daemon = False;
+        if 'daemon' in kwargs:
+            is_demon = kwargs['daemon']
+            if is_demon == True or is_demon == False:
+                self._thread_daemon = is_demon
+
+        # Response waiting flag
+        self._cmdex_waiting = False
+
+        # Waiting counter
+        self._waiting_counter = 0
+        self._retry_counter = 0
+
+
+        #
+        # Update callbacks passed through the kwqrgs
+        #
+
+        # Cmdex formatted Line received callback
+        if 'line_callback' in kwargs:
+            self._line_callback = kwargs['line_callback']
+
+        # ADC event line received
+        if 'adc_callback' in kwargs:
+            self._adc_callback = kwargs['adc_callback']
+
+        # PSW event line received
+        if 'psw_callback' in kwargs:
+            self._psw_callback = kwargs['psw_callback']
+
+        # LED event line received
+        if 'led_callback' in kwargs:
+            self._led_callback = kwargs['led_callback']
+
+        # Timeout callback
+        if 'timeout_callback' in kwargs:
+            self._timeout_callback = kwargs['timeout_callback']
+
+
+
+        self.__interval_objects = {}
+
+        self._interval_thread   = None
+
+        self.__timeout_objects  = {}
+
+
+        # Start
+        self.start()
+
+
+    def get_date_time(self):
+        return str(datetime.now())
+
+    def get_date(self):
+        sp = str(datetime.now()).split(' ')
+        return sp[0] # yyyy-mm-dd
+
+    def get_time(self):
+        sp = str(datetime.now()).split(' ')
+        return sp[1] # hh:mm:ss.xxxxxx
+
+    def handshake(self):
+        """
+        Performs handshaking.
+        If the MCU is detected, returns the port name, otherwise returns None.
+        """
+
+        print("\r\nCmdexCore: Serial port detecting...")
+
+        # Get port names, e.g., COM1, COM2,...
+        port_names = self.port_get_names()
+        if len(port_names) > 0:
+            s = 's' if len(port_names) > 1 else ''
+            print(f'  Found {len(port_names)} port{s}:')
+            for p_name in port_names:
+                print('    - ' + p_name)
+        else:
+            print(f"CmdexCore: No port is found!")
+
+
+
+        target_port = None
+
+        # Open and perform handshake
+        for p_name in port_names:
+            try:
+                # Open the port
+                print(f"CmdexCore: Performs handshaking @ {p_name}...")
+
+                _uart = CmdexSerial(port=p_name, baudrate=115200,timeout=1)._uart
+                # _uart = ser._uart
+
+                if _uart.isOpen():
+                    # Sends a request to MCU
+                    _uart.write(b'ver,0\r\n')
+
+                    loop_flag = True
+                    retry_count = 0
+                    while loop_flag == True:
+
+                        line = _uart.readline()
+
+                        # Check if the MCU responds on the  port.
+                        if len(line) > 0:
+                            sp = line.split(b',')
+                            # print(sp)
+                            if sp[0] == b'ok: ver':
+                                print(f'CmdexCore: MCU is detected @ {p_name}')
+                                ver = ""
+                                ver = ver.join(map(chr, sp[-1]))
+                                print(f'\r\nMCUFirmware: {ver}')
+                                loop_flag = False
+                                target_port = p_name
+                                retry_count = 99
+                                break # Breaks while
+                        else:
+                            if target_port == None:
+                                print(f'CmdexCore: Performs handshaking [{retry_count}/10]')
+                                _uart.read()
+                                _uart.write(b'ver,0\r\n')
+                                retry_count += 1
+                                if retry_count > 10:
+                                    print(f'CmdexCore: MCU is not found @ {p_name}')
+                                    break
+
+                    # Breaks for
+                    if target_port != None:
+                        break
+
+            except Exception as e:
+                print(f'CmdexCore: Exception --> {e}')
+            finally:
+                _uart.close()
+                pass
+
+        # print('CmdexCore: Handshake ended')
+        return target_port
+
+
+    def stop(self):
+        """ Stops the core-thread and closes the port """
+        self._thread_running = False    # Stop the worker thread
+        return self.port_close()        # Close the port
+
+
+    def start(self):
+        """ Starts the core-thread of the Cmdex """
+        if not self.port_is_open():
+            return False
+
+        # Create and start the worker thread
+        self._thread_running = True
+        self._thread = threading.Thread(None, self.__worker, 'worker', daemon=self._thread_daemon)
+        self._thread.start()
+        return True
+
+
+    def split_cmdex_params(self, line_bytes):
+        """ Splits the Cmdex-formated line, delimited by comma, into a list """
+        sp1 = sp2 = b''
+        try:
+            sp1 = sp2 = b''
+            sp1 = line_bytes.replace(b'\r\n',b'').replace(b' ',b'')
+            sp1 = sp1.split(b',')
+            sp2 = sp1[0].split(b':')
+        except Exception as e:
+            print(f'CmdexCore Exception -> {e}')
+        return sp2+sp1[1:]
+
+
+    def is_cmdex_format(self, line_bytes):
+        """ Returns True if the given line is the Cmdex-formated """
+        s = line_bytes
+        return (s.startswith(b"ok: ") or s.startswith(b"err: ")) and s.endswith(b"\r\n")
+
+
+    def is_cmdex_ok(self, line_bytes):
+        """ Returns True if the given line is the ok-line of the Cmdex-formated """
+        s = line_bytes
+        return s.startswith(b"ok: ") and self.is_cmdex_format(line_bytes)
+
+
+    def is_cmdex_err(self, line_bytes):
+        """ Returns True if the given line is the err-line of the Cmdex-formated """
+        s = line_bytes
+        return s.startswith(b"err: ") and self.is_cmdex_format(line_bytes)
+
+
+    def add_callback(self, type, callback):
+        """
+        Adds a callback function into the callback dictionary
+
+            - type: event name, e.g., "line", "psw", "adc", "led".
+            - callback: callback function.
+        """
+
+        if type in self.__callbacks:
+            cbk = self.__callbacks.pop(type)
+            cbk = cbk + [callback]
+            self.__callbacks.update({type:cbk})
+        else:
+            self.__callbacks.update({type:[callback]})
+
+
+    # Private method. This method is executed by the thread created in the start().
+    def __worker(self):
+
+        # Print exit-key information
+        s = ""
+        i = 0
+        for k in self._exit_keys:
+            s += "\"" + k.upper() + "\""
+            i += 1
+            if i < len(self._exit_keys):
+                s += " or "
+        print(f'CmdexCore: Service is running....\r\nCmdexCore: Press {s} to exit.')
+
+
+        # Thread sleep time
+        __sleep_time = 1/50
+
+        while True:
+
+            try:
+
+                time.sleep(__sleep_time)
+
+                # Check the ending keys or running flag
+                need_exit = False
+                for k in self._exit_keys:
+                    if keyboard.is_pressed(k):
+                        need_exit = True
+                        break
+
+                if need_exit or self._thread_running == False:
+                    self.stop()
+                    self._thread_running = False
+                    break
+
+                # Check the port. If the port is closed, end the service
+                if not self._uart.isOpen():
+                    print(f'CmdexCore: The port "{self._uart.port}" is closed. The Cmdex service is stopped.')
+                    self._thread_running = False
+                    continue
+
+
+                # Make a request to the Cmdex running in the MCU side
+                if self._cmdex_waiting == False and len(self._queue_cmd_cbk) > 0:
+
+                    # Takes the command and callback
+                    self._last_cmd_cbk = self._queue_cmd_cbk.pop(0)
+
+                    # Set the waiting flag
+                    self._cmdex_waiting   = True
+
+                    # Clear waiting counter
+                    self._waiting_counter = 0
+                    self._retry_counter = 0
+
+                    # Sends the command to MCU
+                    self.port_write_bytes(self._last_cmd_cbk['cmd'])
+                    if self._debug_core == True:
+                        cmd = self._last_cmd_cbk['cmd'].replace('\r\n', '');
+                        print(f'{self.get_date_time()} CmdexCore: Write command {cmd} to MCU')
+
+
+
+                # Waiting for the Cmdex response message
+                # A command is sent to the MCU. Waiting for response message
+                if self._cmdex_waiting == True:
+
+                    self._waiting_counter += 1
+
+                    if self._waiting_counter >=  0.05/__sleep_time:# 0.25/__sleep_time:
+
+                        # Timeout!
+
+                        # Reset the waiting counter
+                        self._waiting_counter = 0
+
+
+                        ##
+                        # Retrying operation
+                        ##
+                        self._retry_counter += 1
+                        if self._retry_counter >= 3:
+                            self._retry_counter = 0     # Reset retry-counter
+                            self._cmdex_waiting = False # Reset waiting-flag
+
+                            # Print
+                            if self._debug_core == True:
+                                cmd = self._last_cmd_cbk['cmd'].replace('\r\n', '');
+                                print(f'{self.get_date_time()} CmdexCore: command {cmd} failed!')
+                        else:
+                            # Retry
+                            self.port_write_bytes(self._last_cmd_cbk['cmd'])
+
+                            # Print
+                            if self._debug_core == True:
+                                cmd = self._last_cmd_cbk['cmd'].replace('\r\n', '');
+                                print(f'{self.get_date_time()} CmdexCore: Timeout @ {cmd}, retry [{self._retry_counter}/3]')
+
+
+
+
+                        # Report timeout
+                        # Performs the timeout callback
+                        if self._timeout_callback != None:
+                            self._timeout_callback([b'timeout'] + self.split_cmdex_params(self._last_cmd_cbk['cmd']))
+
+                        # Perform callback if required
+                        if self._last_cmd_cbk['cbk'] != None:
+                            # Performs the callback
+                            self._last_cmd_cbk['cbk']( [b'timeout'] + self.split_cmdex_params(self._last_cmd_cbk['cmd']) )
+
+                        # If no callbacks, print the timeout information to the console
+                        if self._timeout_callback == None and self._last_cmd_cbk['cbk'] != None:
+                            print('CmdexCore: ' + 'Timeout @ {}, do callback!'.format( str(self._last_cmd_cbk['cmd']).replace('\r\n','') ))
+
+
+
+                # Read data
+                line_bytes = self._uart.readline()
+                if len(line_bytes) > 0:
+
+                    # Got a new line, performs the callback
+                    self.__line_processor(line_bytes)
+
+                    # Perform callbacks added by the add_callback()
+                    for key in self.__callbacks:
+
+                        if key == 'line':
+                            for cbk in self.__callbacks[key]:
+                                cbk(line_bytes)
+
+                        elif key == 'psw' and line_bytes.find(b'psw,') > 2 and self.is_cmdex_format(line_bytes):
+                            for cbk in self.__callbacks[key]:
+                                cbk(line_bytes)
+
+                        elif key == 'adc' and line_bytes.find(b'adc,') > 2 and self.is_cmdex_format(line_bytes):
+                            for cbk in self.__callbacks[key]:
+                                cbk(line_bytes)
+
+                        elif key == 'led' and line_bytes.find(b'led,') > 2 and self.is_cmdex_format(line_bytes):
+                            for cbk in self.__callbacks[key]:
+                                cbk(line_bytes)
+
+            except Exception as e:
+                print(f'CmdexCore: Exception -> {e}')
+
+
+
+
+    # Private method. This method is executed by the __worker().
+    def __line_processor(self, line_bytes):
+
+        try:
+
+            resp_type = 'res' # or evt
+
+            # Cmdex Format checking
+            if (line_bytes.startswith(b'ok: ') or line_bytes.startswith(b'err: ')) and line_bytes.endswith(b'\r\n'):
+
+                sp1 = sp2 = b''
+
+                # Remove the \r\n and space
+                sp1 = line_bytes.replace(b'\r\n',b'').replace(b' ',b'')
+
+                # Split
+                sp1 = sp1.split(b',')
+
+                # Format checking
+                if len(sp1) >= 1:
+                    sp2 = sp1[0].split(b':')
+
+                if len(sp2) >= 1:
+
+                    # callback data
+                    cbk_data = sp2+sp1[1:]
+
+                    # cmdex formated line received callback
+                    if self._line_callback != None:
+                        self._line_callback(cbk_data)
+
+
+                    # ADC event line received callback
+                    if self._adc_callback != None:
+                        if cbk_data[1] == b'adc' and len(cbk_data) == 6: # ok, adc, id, value, delta, dir
+                            resp_type = 'evt'
+                            self._adc_callback(cbk_data)
+
+
+                    # PSW event line received callback
+                    if self._psw_callback != None:
+                        if cbk_data[1] == b'psw' and len(cbk_data) == 5: # ok, psw, id, status, state
+                            resp_type = 'evt'
+                            self._psw_callback(cbk_data)
+
+                    # LED response (not event) line received callback
+                    if self._led_callback != None:
+                        if cbk_data[1] == b'led' and len(cbk_data) == 5: # ok, led, id, fn, status
+                            self._led_callback(cbk_data)
+
+                # Got the Cmdex formatted response line, ready for a new request
+                if resp_type == 'res':
+
+                    # Clear waiting flag
+                    self._cmdex_waiting = False
+                    self._waiting_counter = 0
+                    self._retry_counter = 0
+
+                    # Perform callback if required
+                    if self._last_cmd_cbk['cbk'] != None:
+
+                        # Performs the callback
+                        self._last_cmd_cbk['cbk'](cbk_data)
+                        # self._cmdex_waiting = False
+
+        except Exception as e:
+            print(f'CmdexCore: Exception -> {e}')
+
+
+    def put_comd_queue(self, command, callback):
+        """ Puts a pair of command-callback into queue """
+        cmd_cbk = {'cmd':command, 'cbk':callback}
+        self._queue_cmd_cbk.append(cmd_cbk)
+
+
+    def clr_interval(self, id):
+        if id in self.__interval_objects:
+            params = self.__interval_objects[id]
+            params[3] = False # 3: enabled flag
+            self.__interval_objects[id] = params
+
+
+    def clr_timeout(self, id):
+        clr_interval(id)
+
+
+    def __create_interval_timeout(self, callback, interval, mode):
+
+        if callable(callback):
+            # 0: callback
+            # 1: interval
+            # 2: ticks
+            # 3: enabled
+            # 4: id
+            # 5: counter
+            # 6: mode, 0: continuous, 1: oneshot
+
+            id = uuid.uuid1().hex[4:20]
+            if interval < 10:
+                interval = 10 # allowed minimum time is 10 mS
+
+            self.__interval_objects[id] = [callback, interval, 0, True, id, 0, mode]
+            if self._interval_thread == None:
+                self.__start_interval()
+        return id
+
+
+    def set_interval(self, callback, interval):
+        return self.__create_interval_timeout(callback, interval, 0)
+
+
+    def set_timeout(self, callback, interval):
+        return self.__create_interval_timeout(callback, interval, 1)
+
+
+    def __proc_interval(self):
+        tick_ms = 10e-3
+        while self._thread_running == True:
+
+            rm_list = []
+            time.sleep(tick_ms)
+            for key in self.__interval_objects:
+                obj = self.__interval_objects[key]
+                if obj[3] != True:
+                    rm_list.append(obj)
+                    continue
+
+                # Timing
+                obj[2] += tick_ms
+                if obj[2] >= obj[1]/1000:
+                    obj[2] = 0  # ticks
+                    obj[5] += 1 # counter
+
+                    # Callback
+                    obj[0]( {'id':obj[4], 'counter':obj[5]} ) # id, counter, object
+
+                    # Stop if it operates in one-short
+                    if obj[6] == 1:
+                        obj[3] = False
+
+            for rm in rm_list:
+                self.__interval_objects.pop(rm[4])
+            rm_list.clear()
+
+
+    def __start_interval(self):
+        self._interval_thread = threading.Thread(None, self.__proc_interval, 'interval', daemon=False)
+        self._interval_thread.start()
+
+
+    @staticmethod
+    def goto_github():
+        url = 'https://github.com/drsanti/PyCmdex'
+        print(f'Opening the {url}')
+        webbrowser.open(url, new=1)
+
+
+    @staticmethod
+    def open_mcu_port(port):
+        uart = serial.Serial(port=port, baudrate=115200,timeout=0.1)
+        uart.rts = None
+        uart.dtr = None
+        time.sleep(2)
+        uart.flushInput()
+        uart.flushOutput()
+        uart.read()
+        return uart;
+
+    @staticmethod
+    def detect_mcu():
+
+        ports = list_ports.comports()
+        if len(ports) > 0:
+            print('\nPort List:')
+            print("\n".join([
+                '   - ' + port.device + ': ' + port.description
+                for port in ports
+            ]))
+
+
+
+        print('\nDetecting MCU board...')
+        retry_flag  = True
+        mcu_port    = None
+
+        for port in ports:
+            if retry_flag == False:
+                break
+
+
+            port_name = port.device;
+            try:
+                uart = serial.Serial(port=port_name, baudrate=115200,timeout=0.25)
+                uart.rts = None
+                uart.dtr = None
+                time.sleep(2)
+                uart.flushInput()
+                uart.flushOutput()
+                uart.read()
+
+                if uart.isOpen():
+                    uart.write(b'ver,0\r\n')
+                    retry_count = 0
+
+                    while retry_flag == True:
+                        line = uart.readline()
+                        if len(line) > 0:
+                            # print(line)
+                            sp = line.split(b',')
+                            if sp[0] == b'ok: ver':
+                                print(f'\nMCU-Port: {port_name}')
+                                ver = ""
+                                ver = ver.join(map(chr, sp[-1]))
+                                print(f'MCUFirmware: {str(ver)}')
+                                loop_flag = False
+                                mcu_port = port_name
+                                retry_count = 999
+                                retry_flag  = False
+
+                                break # Breaks while
+                        else:
+                            if mcu_port == None:
+                                print(f'CmdexCore: Performs handshaking [{retry_count}/10]')
+                                uart.read()
+                                uart.write(b'ver,0\r\n')
+                                retry_count += 1
+                                if retry_count > 10:
+                                    print(f'CmdexCore: MCU is not found @ {port_name}')
+                                    break
+
+
+
+            except Exception as e:
+                print(e)
+
+
+        # print(f'MCU@{mcu_port}')
+        return mcu_port;

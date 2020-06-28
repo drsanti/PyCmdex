@@ -2,9 +2,17 @@
 
 > Go to the [examples](./examples), if you already installed the `PyCmdex`
 
+---
+
+
 ## PyCmdex library
 
 The PyCmdex is a Python library used to develop computer and microcontroller cooperation applications. It provides plentiful APIs for microcontroller interfacing. With this library, you can make computer-based control and monitoring application easier and faster.
+
+![PyCmdex_Image](resources/github_image.png)
+
+
+---
 
 ## Supported Microcontrollers
 
@@ -101,6 +109,17 @@ CmdexMcu: {'leds': [False, False, False, False], 'psw': [869, 85, 574, 182], 'ad
 
 ---
 
+## :computer: Downloads
+
+:computer: [CLI and Cmdex](resources/cli_and_cmdex.rar)
+
+---
+
+## :movie_camera: All Videos
+
+:movie_camera: [YouTube Playlist](https://www.youtube.com/playlist?list=PLBPFpqyTjzeULBFcZbrjapqZDPKQBnaG8)
+---
+
 ## Cloning this repository
 
 ```
@@ -109,5 +128,6 @@ git clone https://github.com/drsanti/PyCmdex.git
 
 ## Change log
 
-- [01 June 2020]: **PyCmdex 1.1.14** is published to the PyPI and GitHub.
-- [11 June 2020]: **PyCmdex 1.1.16** is published to the PyPI and GitHub.
+- [01 June 2020]: **PyCmdex 1.1.14** is published.
+- [11 June 2020]: **PyCmdex 1.1.16** is published.
+- [24 June 2020]: **PyCmdex 1.1.17** is published.

@@ -1,24 +1,156 @@
 """
-# ************************************************************
-# File:     cmdex_serial.py
-# Version:  1.1.16 (11 Jun 2020)
-# Author:   Asst.Prof.Dr.Santi Nuratch
-#           Embedded Computing and Control Laboratory
-#           ECC-Lab, INC, KMUTT, Thailand
-# Update:   15:33:32, 11 Jun 2020
-# ************************************************************
-# 
-# 
-# Copyright 2020 Asst.Prof.Dr.Santi Nuratch
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-# 
+************************************************************
+* File:    CmdexSerial.py                                  *
+* Author:  Asst.Prof.Dr.Santi Nuratch                      *
+*          Embedded Computing and Control Laboratory       *
+*          ECC-Lab, INC, KMUTT, Thailand                   *
+* Update:  22 May 2020                                     *
+************************************************************
 """
 
+import serial
+import time
+from serial.tools import list_ports
 
-import zlib, base64
-exec(zlib.decompress(base64.b64decode('eJylV1tP4zgUfu+vONN9aMqkWah2pRESK812GAntchEU7QOg4iYu9Uwad21nmArx3/f40sRxQwuLH9rEOdfv3Oxut9vZe8fq7MFXltNDwDVaZPTnFRWM5MlyBTuXZv5cqjkXyP5ZSpVcCD5LvojkihSKwVkpiErnLzNX63gxpVlGMxjxxbJUrHgAUui3Qgmew99kylEUF6tW5tFogBQxnJyNYvjr9Ho8jmE8JyzXMto1Xy8zorTXwyGckhUM94f7ux22zO9Bu4vh6rDFkgsF0iC9flNsQTszwRduP1Gc5xLc15xJNdFPstNJcyKlH6zDTkebltEZTCasYGoyiSTNZzFojhimpMwQPnp0cPD7cH8/hr29749EPMi+49TrF7jQigqyoBBJJTAG/eqjlpYY/XBkhPp8f3IrPqCeum3kWBvgc43RX16qgEnZXeQ5+BVN9Rmsr0Y78Ok3moa8JTHmnfGCbrhlGWQCUZLRHyylJr/wWaaCLRXjRZuzEsXd3PnCThBdtIJJKo0EvqQFqDl1QbPYNATpHROUqF+Hqd7UNH4YqBCo9CvJZY2nEqvD6sXZMfO1Wu+ASUgFRZyzyjaaxZDmXFJgqiGCzXzUPljYmlqsppHh1soavrXKSZg8R6VRf1NQM0yJsSmL+jvoNsIZRmF3EDYEuvKy6RRp2qM64l6xNLM4dpl51MhTDGlg2j9zZ4vN07Vlp6NrHR5BJdU6aEpKh+rl+Mo48WV8CUSgQ6liP3QMPwSSL+m/JRMY2xkXcHEyGv4GU05E9oKniU1fA98LFJkSbRTat0TmlC6jYf8l3lleyvlJgc062k5zXqqtRJiw2bo01muJ3UdFs57f40Bnlh4MBtinOmTPSZL0+gFYTR/CzC+4el3WekTckIThHs1p+l2LrEKOUbaF97+VCqITGwNu/rVgbApcxFVq2L2fKTWNC7s1pZhSOX/0zLOf4biiIhJo2EXQKtNpDmvEeZlnxtQqdY1XXR/wbgB3a7g8zap5slj3Phj8AU/0ORBmG+BYlHVSzlhB8jzogQ5RJN9EsNWgJw984wbc+Fvrun8enA0+DQ7uArMEVaUo1io7QSs3ydE2cr3wejNUr6OWWdE6MwMLdgwV01jXU+Wt2Rc26BerNmwbzjYTtWDIyRocT5vvjJWoe2CLgYG4R8EUdUjjCY54Il81OV8aV21zTa2WNDJK9HycrhQlQpDVztlmbazojYgYeqWaDT71+psjj+oKfJ1QY01nN7NpIW/pBW8rYWPM+8p3ez0ZBRMNoXTBNs+TIOQbJVFD72jbBdvjrZNsX7aJrnvGOv88lnYNKV8sMKOdilRjN8FfTwG+IVDVF79WTeJp6i15Z9nrJMP3Osc2lSRymWO3mPZuRa9/s38HH0E/3xa9XWBqO0IfaVEuqG5OYVnr6836+UKnlAR33DYHLXO76JtS907ewOvxKfF0U+Jn5g50K6noImmV3zym1xekBLE3D173sundvS26yTfOiuimmfxcH4asnR+hdwg9/HOblZUNDn0Es9O+8O2oaO76G5g9UGffNswuTQykf8lpRwSOCV6sPTJI8a5MGPLeO1fuDc73vg/370eyURfuQrrpqI7z6x011G1uxkCThySG0fnpgfkdxnjYe4UPdRLXsNc+WH36aqdPcFq2E123rPb4NkvQiEnIEkdIFnk5tAGWIez8B+KF6q4=')))
+class CmdexSerial:
+
+    def __init__(self, port, baudrate=115200, **kwargs):
+
+        # Port name (string)
+        self._port = port
+
+        # Boudrate
+        self._boudrate = baudrate
+
+        # Timeout
+        self._timeout = 1/200
+
+        # Serial port object
+        self._uart = None
+
+        # Port objects. (.device and .description)
+        self._ports = []
+
+        # Initialises and open the serial port
+        self.port_init()
+
+    def port_init(self):
+
+        err = False
+        try:
+            # If the serial object is created and opened, close it
+            if self._uart != None:
+                # Close the port
+                if self._uart.isOpen():
+                    self._uart.closed()
+                    self._uart = None
+
+            # Initialise and open the serial port
+            self._uart = serial.Serial(port=self._port, baudrate=self._boudrate,timeout=self._timeout)
+
+
+            # When the port open the MCU is reset, because the RTS and DTR are activated!
+            # Required for PIC24 board
+            self._uart.rts = None
+            self._uart.dtr = None
+            time.sleep(2)
+            self._uart.flushInput()
+            self._uart.flushOutput()
+            self._uart.read()
+
+            print(f'CmdexSerial: Opening port {self._port}...')
+            # time.sleep(2)
+
+            if not self._uart.isOpen():
+                self._uart.open()
+
+            # Check if the port is opened
+            if not self._uart.isOpen():
+                raise # Raise the error, activate the exception (see below)
+
+        except Exception as e:
+            # if False: print(f'Could not open the port "{self._port}"')
+            print(f'CmdexSerial: Exception at CmdexSerial.port_init -> {e}')
+            err = True
+        finally:
+            if not err:
+                print(f'CmdexSerial: {self._uart.port} [{self._uart.baudrate}-N-8-1]')
+            return not err
+
+
+    def port_open(self, port, baudrate):
+        self._port     = port
+        self._boudrate = baudrate
+        return self.port_init()
+
+    def port_close(self):
+        if not self._uart.isOpen():
+            self._uart.close()
+            self._uart = None
+        return True
+
+    def port_is_open(self):
+        return self._uart and self._uart.isOpen()
+
+    def port_write(self, data):
+        err = False
+        try:
+            if self._uart.isOpen():
+
+                if type(data) != bytearray:
+                    self._uart.write(bytearray(data, 'utf-8'))
+                else:
+                    self._uart.write(data)
+            else:
+                raise
+        except Exception as e:
+            print(f'CmdexSerial: Exception at CmdexSerial.write -> {e}')
+            err = True
+        finally:
+            return not err
+
+
+    def port_write_bytes(self, bytes_data):
+        return self.port_write(bytes_data)
+
+
+    def port_write_string(self, string_data):
+        return self._uart.port_write(string_data)
+
+
+    def port_write_command(self, cmdex_cmd):
+        cmd = cmdex_cmd
+        if type(cmd) != bytearray:
+            cmd = bytearray(cmd, 'utf-8')
+        cmd = cmd.split(b'\r')[0] + b'\r\n'
+        return self.port_write(cmd)
+
+
+    def port_enumerate(self):
+        """
+        Prints device (port name) and description of the ports found in the system.
+        """
+        self._ports = list_ports.comports()
+        print("\n".join([
+            port.device + ': ' + port.description
+            for port in self._ports
+        ]))
+
+
+    def port_get_ports(self):
+        """
+        Returns port objects found in the system. Each port object contains `.device` and `.description`.
+        """
+        self._ports = list_ports.comports()
+        return self._ports
+
+
+    def port_get_names(self):
+        """
+        Returns port names found in the system, e.g., COM1, COM2,...
+        """
+        self._ports = self.port_get_ports()
+        names = [] # COM1,COM2,..
+        for port in self._ports:
+            names.append(port.device)
+        return names
