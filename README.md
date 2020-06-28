@@ -109,15 +109,23 @@ CmdexMcu: {'leds': [False, False, False, False], 'psw': [869, 85, 574, 182], 'ad
 
 ---
 
-## :computer: Downloads
+## 📁 Downloads
 
-:computer: [CLI and Cmdex](resources/cli_and_cmdex.rar)
+:cd: [ecc-pic24-cli.exe](resources/ecc-pic24-cli.exe)
+
+⚙️[cmdex.hex](resources/cmdex.hex)
+
+💻 [mcu_circuit.pdsprj](resources/mcu_circuit.pdsprj)
+
+📕 [mcu_circuit.pdf](resources/mcu_circuit.pdf)
+
+📕 [Cmdex-user-manual-v1.0.5.pdf](resources/Cmdex-user-manual-v1.0.5.pdf)
 
 ---
 
-## :movie_camera: All Videos
+## 🎬 All Videos
 
-:movie_camera: [YouTube Playlist](https://www.youtube.com/playlist?list=PLBPFpqyTjzeULBFcZbrjapqZDPKQBnaG8)
+🎬 [YouTube Playlist](https://www.youtube.com/playlist?list=PLBPFpqyTjzeULBFcZbrjapqZDPKQBnaG8)
 
 ---
 
