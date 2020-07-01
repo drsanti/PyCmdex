@@ -121,9 +121,13 @@ CmdexMcu: {'leds': [False, False, False, False], 'psw': [869, 85, 574, 182], 'ad
 
 📕 [Cmdex-user-manual-v1.0.5.pdf](resources/Cmdex-user-manual-v1.0.5.pdf)
 
+💿 [Proteus v8.9 SP2](https://drive.google.com/file/d/1IClRuiajeQ-bwIJgyvTqLfJ2Y_bHaSDr/view?usp=sharing)
+
+📀 [Virtual Serial Port v6.9](https://drive.google.com/file/d/1E3luWHXZea3yP--q7F0TudyRFYluEihx/view?usp=sharing)
+
 ---
 
-## 🎬 All Videos
+## 🎬 All Videos (Play List)
 
 🎬 [YouTube Playlist](https://www.youtube.com/playlist?list=PLBPFpqyTjzeULBFcZbrjapqZDPKQBnaG8)
 
